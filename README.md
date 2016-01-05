@@ -1,2 +1,76 @@
 # exude
 Simple java library to filter the stopping,stemming and contracts words from the data or file which will help in  indexing the data for the search or filtering data for only logical words.
+
+======================================================================
+This is the part of maven repository now,Directly add in pom following.
+
+        <dependency>
+            <groupId>com.uttesh</groupId>
+            <artifactId>exude</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        
+This is the simple library for removing/filtering the stopping,stemming words from the text data, this is in very basic level develop need to work on for later changes.
+
+<b>How to use exude Library</b>
+<hr/>
+
+Download latest version of pdfreport <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.1/">download</a>
+
+How Exude library works:
+
+Exude library first remove the duplicate words from the input data/file then it will run through to remove the stopping words, after removing the stopping it will go through each words to find the stemmer by using the Porter algorithm which is used for suffix stripping.
+
+ pdf report preview snaps :
+ 
+![demo](https://raw.github.com/uttesh/exude/master/docs/process/flow.png)
+
+<b>Environment and dependent jar file</b>
+<hr/>
+
+1. Minimum JDK 1.6 or higher
+2. Apache Tika jar (which is used to parse the files for the data extraction)
+
+
+Sample code:
+
+Sample Text Data
+
+	 String inputData = "Kannada is a Southern Dravidian language, and according to Dravidian scholar Sanford Steever, its history can be conventionally divided into three periods; Old Kannada (halegannada) from 450–1200 A.D., Middle Kannada (Nadugannada) from 1200–1700 A.D., and Modern Kannada from 1700 to the present.[20] Kannada is influenced to an appreciable extent by Sanskrit. Influences of other languages such as Prakrit and Pali can also be found in Kannada language.";
+     String output = exudeData.filterStoppings(inputData);
+     System.out.println("output : "+output);
+	 
+Sample File Data
+
+	String inputData = "any file path";
+	String output = exudeData.filterStoppings(inputData);
+	System.out.println("output : "+output);
+
+
+contributions
+=============
+
+All credit goes to <a href="https://tika.apache.org/">apache tika</a> which is used to parse the files for the data extraction.
+
+Exude library Developer : <a href="http://www.uttesh.com" target="_blank">uttesh.com</a>
+
+<h3>
+<a name="license" class="anchor" href="#license"><span class="mini-icon mini-icon-link"></span></a>License</h3>
+
+<p>(The Apache License)</p>
+
+<p>Copyright (c) 2016 Uttesh Kumar T.H.</p>
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</p>
+
+
