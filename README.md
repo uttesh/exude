@@ -1,5 +1,5 @@
 # exude
-Simple java library to filter the stopping,stemming and contracts words from the data or file which will help in  indexing the data for the search or filtering data for only logical words.
+This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.
 
 ======================================================================
 This is the part of maven repository now,Directly add in pom following.
@@ -9,8 +9,6 @@ This is the part of maven repository now,Directly add in pom following.
             <artifactId>exude</artifactId>
             <version>0.0.1</version>
         </dependency>
-        
-This is the simple library for removing/filtering the stopping,stemming words from the text data, this is in very basic level develop need to work on for later changes.
 
 <b>How to use exude Library</b>
 <hr/>
