@@ -49,7 +49,7 @@ Sample File Data
 contributions
 =============
 
-All credit goes to <a href="https://tika.apache.org/">apache tika</a> which is used to parse the files for the data extraction.
+Credit <a href="https://tika.apache.org/">apache tika</a> which is used to parse the files for the data extraction.
 
 Exude library Developer : <a href="http://www.uttesh.com" target="_blank">uttesh.com</a>
 
