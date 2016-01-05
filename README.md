@@ -16,9 +16,11 @@ Download latest version of exude <a href="https://repo1.maven.org/maven2/com/utt
 
 How Exude library works:
 
-Exude library first remove the duplicate words from the input data/file then it will run through to remove the stopping words, after removing the stopping it will go through each words to find the stemmer by using the Porter algorithm which is used for suffix stripping.
+Step 1: Removes the duplicate words from the input data/file. 
+Step 2: Removes the stopping words from step1 filtered data.
+Step 3: Removes the stemmer words from step2 filtered data using the Porter algorithm which is used for suffix stripping.
 
- pdf report preview snaps :
+ exude sequence flow:
  
 ![demo](https://raw.github.com/uttesh/exude/master/docs/process/flow.png)
 
