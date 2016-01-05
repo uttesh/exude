@@ -14,7 +14,6 @@ This is the part of maven repository now,Directly add in pom following.
         
 <b>How to use exude Library</b>
 <hr/>
-
 Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.1/">download</a>
 
 How Exude library works:
@@ -23,7 +22,7 @@ Step 1: Removes the duplicate words from the input data/file. </br>
 Step 2: Removes the stopping words from step1 filtered data. </br>
 Step 3: Removes the stemmer words from step2 filtered data using the Porter algorithm which is used for suffix stripping. </br>
 
- exude sequence flow:
+exude process sequence flow:
  
 ![demo](https://raw.github.com/uttesh/exude/master/docs/process/flow.png)
 
