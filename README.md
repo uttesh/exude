@@ -1,7 +1,7 @@
 # exude
 
 
-This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.
+<p>This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.</p>
 ======================================================================
 This is the part of maven repository now,Directly add in pom following.
 
