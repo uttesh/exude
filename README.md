@@ -1,4 +1,10 @@
 # exude
+========================================================================================================
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/uttesh/exude/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/)
+[![Build Status](https://travis-ci.org/uttesh/exude.svg)](https://travis-ci.org/uttesh/exude)
+
+
 <p>This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.</p>
 
 This is the part of maven repository now,Directly add in pom following.
