@@ -35,7 +35,7 @@ public interface Constants {
     String COMMON_EN_STOPPING_N_WORDS = "neither,no,nor,not";
     String COMMON_EN_STOPPING_O_WORDS = "of,off,often,on,only,or,other,our,own";
     String COMMON_EN_STOPPING_R_WORDS = "rather";
-    String COMMON_EN_STOPPING_S_WORDS = "said,say,says,she,should,since,so,some";
+    String COMMON_EN_STOPPING_S_WORDS = "said,say,says,she,should,since,so,some,such";
     String COMMON_EN_STOPPING_T_WORDS = "than,that,the,their,them,then,there,these,they,this,tis,to,too,twas";
     String COMMON_EN_STOPPING_U_WORDS = "us";
     String COMMON_EN_STOPPING_W_WORDS = "wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,without";
@@ -73,4 +73,6 @@ public interface Constants {
         int W_ASCCI = 119;
         int Y_ASCCI = 121;
     }
+    String FILE_PATH_REGULAR_EXPRESSION = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
+    String URL_REGULAR_EXPRESSION = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 }

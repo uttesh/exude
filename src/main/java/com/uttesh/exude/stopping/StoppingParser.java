@@ -21,7 +21,7 @@ public class StoppingParser {
         return instance;
     }
     
-    public void finalData(StringBuilder finalFilteredData,File outputFile) {
+    public void finalData(StringBuilder finalFilteredData,String outputFile) {
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), Constants.UTF_8));
             writer.write(finalFilteredData + " ");

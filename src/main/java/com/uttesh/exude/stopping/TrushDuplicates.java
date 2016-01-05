@@ -39,9 +39,9 @@ public class TrushDuplicates {
         return instance;
     }
 
-    public Set<String> filter(File file) throws IOException {
+    public Set<String> filter(String file) throws IOException {
         try {
-            List<String> strings = Files.readAllLines(file.toPath());
+            List<String> strings = Files.readAllLines((new File(file)).toPath());
             filteredSet = new TreeSet(String.CASE_INSENSITIVE_ORDER);
             filteredSet.addAll(strings);
         } catch (FileNotFoundException e) {
@@ -61,8 +61,8 @@ public class TrushDuplicates {
         return filteredSet;
     }
 
-    public void filterDuplicates(File inputFile, File outFile) throws IOException {
-        BodyContentHandler contentHandler = getData(inputFile);
+    public void filterDuplicates(String inputFilePath, String outFilePath) throws IOException {
+        BodyContentHandler contentHandler = getData(inputFilePath);
         Set<String> lines = new LinkedHashSet<String>();
         if (contentHandler != null) {
             String line = contentHandler.toString();
@@ -74,21 +74,22 @@ public class TrushDuplicates {
                 if (line.trim().length() > 0) {
                     lines.add(line.replace("\"", ""));
                 }
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(outFile), Constants.UTF_8));
+            }
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(outFilePath), Constants.UTF_8));
                 for (String unique : lines) {
                     writer.write(unique + " ");
                 }
                 writer.close();
-            }
         }
     }
 
-    public void filterDuplicates(String inputData, String outputData) throws IOException {
+    public String filterDuplicates(String path) throws IOException {
+        BodyContentHandler contentHandler = getData(path);
         Set<String> lines = new LinkedHashSet<String>();
         StringBuilder stringBuilder = new StringBuilder();
-        if (inputData != null && inputData.trim().length() > 0) {
-            String line = inputData;
+        if (contentHandler != null) {
+            String line = contentHandler.toString();
             String delims = " ";
             line = line.trim();
             StringTokenizer str = new StringTokenizer(line, delims);
@@ -97,20 +98,44 @@ public class TrushDuplicates {
                 if (line.trim().length() > 0) {
                     lines.add(line.replace("\"", ""));
                 }
-                for (String unique : lines) {
-                    stringBuilder.append(unique + " ");
-                }
             }
-            outputData = stringBuilder.toString();
+            for (String unique : lines) {
+                stringBuilder.append(unique + " ");
+            }
+            return stringBuilder.toString();
         }
+        return "";
     }
 
-    public static BodyContentHandler getData(File file) {
+    public String filterDuplicatesInText(String inputData) throws IOException {
+        Set<String> filterwords = new LinkedHashSet<String>();
+        StringBuilder stringBuilder = new StringBuilder();
+        if (inputData != null && inputData.trim().length() > 0) {
+            String[] words = inputData.split("\\ ");
+            if (words != null && words.length > 0) {
+                for (int i = 0; i < words.length; i++) {
+                    String word = (String) words[i];
+                    if (word.trim().length() > 0) {
+                        filterwords.add(word.replace("\"", ""));
+                    }
+                }
+                for (String unique : filterwords) {
+                    stringBuilder.append(unique + " ");
+                }
+                return stringBuilder.toString();
+            } else {
+                return inputData;
+            }
+        }
+        return null;
+    }
+
+    public static BodyContentHandler getData(String data) {
         try {
             Parser parser = new AutoDetectParser();
             BodyContentHandler handler = new BodyContentHandler();
             Metadata metadata = new Metadata();
-            FileInputStream inputstream = new FileInputStream(file);
+            FileInputStream inputstream = new FileInputStream(new File(data));
             ParseContext context = new ParseContext();
             parser.parse(inputstream, handler, metadata, context);
             return handler;
