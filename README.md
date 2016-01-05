@@ -1,6 +1,5 @@
 # exude
 This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.
-
 ======================================================================
 This is the part of maven repository now,Directly add in pom following.
 
@@ -13,7 +12,7 @@ This is the part of maven repository now,Directly add in pom following.
 <b>How to use exude Library</b>
 <hr/>
 
-Download latest version of pdfreport <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.1/">download</a>
+Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.1/">download</a>
 
 How Exude library works:
 
