@@ -17,7 +17,7 @@ public interface Constants {
      * k : ASCII: 107 -- l : ASCII: 108 m : ASCII: 109 n : ASCII: 110 o : ASCII:
      * 111 p : ASCII: 112 -- q : ASCII: 113 -- r : ASCII: 114 s : ASCII: 115 t :
      * ASCII: 116 u : ASCII: 117 v : ASCII: 118 -- w : ASCII: 119 x : ASCII: 120
-     * -- y : ASCII: 121 z : ASCII: 122 --
+     * -- y : ASCII: 121 z : ASCII: 122 
      *
      */
     String COMMON_EN_STOPPING_A_WORDS = "a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at";
