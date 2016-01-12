@@ -49,10 +49,10 @@ public class TrushDuplicates {
         try {
             File input = new File(file);
             if (input != null) {
-                List<String> strings = Files.readAllLines(input.toPath());
-                filteredSet.addAll(strings);
+               // List<String> data = Files.readAllLines(input.toPath());
+               // filteredSet.addAll(data);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return filteredSet;
