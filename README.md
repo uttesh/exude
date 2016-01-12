@@ -55,15 +55,15 @@ Sample File Data
 	
 Sample Link Data
 
- 	String inputData = "https://en.wikipedia.org/wiki/Rama";
-        String output = exudeData.filterStoppings(inputData);
-        System.out.println("output : "+output);
+	String inputData = "https://en.wikipedia.org/wiki/Rama";
+	String output = exudeData.filterStoppings(inputData);
+	System.out.println("output : "+output);
 
 Get swear words from data/file/link
 
 	String inputData = "enter text with bad words";
-        String output = exudeData.getSwearWords(inputData);
-        System.out.println("output : "+output);
+	String output = exudeData.getSwearWords(inputData);
+	System.out.println("output : "+output);
 
 
 contributions
