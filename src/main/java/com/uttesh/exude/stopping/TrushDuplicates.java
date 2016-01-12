@@ -47,8 +47,11 @@ public class TrushDuplicates {
 
     public Set<String> filter(String file) throws IOException {
         try {
-            List<String> strings = Files.readAllLines((new File(file)).toPath());
-            filteredSet.addAll(strings);
+            File input = new File(file);
+            if (input != null) {
+                List<String> strings = Files.readAllLines(input.toPath());
+                filteredSet.addAll(strings);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -204,25 +207,25 @@ public class TrushDuplicates {
             String line = _iterable.next();
             String[] dataarr = line.split(Constants.SPACE);
             String _data = null;
-            if(dataarr.length > 0){
-            for (int i = 0; i < dataarr.length; i++) {
-                String tempStr = dataarr[i];
-                String[] tempArr = tempStr.split(Constants.SPACE);
-                if (tempArr.length > 0) {
-                    for (int j = 0; j < tempArr.length; j++) {
-                        _data = tempArr[j].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+            if (dataarr.length > 0) {
+                for (int i = 0; i < dataarr.length; i++) {
+                    String tempStr = dataarr[i];
+                    String[] tempArr = tempStr.split(Constants.SPACE);
+                    if (tempArr.length > 0) {
+                        for (int j = 0; j < tempArr.length; j++) {
+                            _data = tempArr[j].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                            if (_data != null && _data.trim().length() > 0) {
+                                _tempSet.add(_data);
+                            }
+                        }
+                    } else {
+                        _data = dataarr[i].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
                         if (_data != null && _data.trim().length() > 0) {
                             _tempSet.add(_data);
                         }
                     }
-                } else {
-                    _data = dataarr[i].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
-                    if (_data != null && _data.trim().length() > 0) {
-                        _tempSet.add(_data);
-                    }
                 }
-            }
-            }else{
+            } else {
                 _tempSet.add(line);
             }
         }
@@ -231,6 +234,5 @@ public class TrushDuplicates {
     public static Set<String> getTempSet() {
         return _tempSet;
     }
-    
-    
+
 }
