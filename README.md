@@ -9,18 +9,24 @@ This is the part of maven repository now,Directly add in pom following.
         <dependency>
             <groupId>com.uttesh</groupId>
             <artifactId>exude</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
         
 <b>How to use exude Library</b>
 <hr/>
-Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.1/">download</a>
+Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.2/">download</a>
+
+Features:
+
+* Filter stopping words from given text/file/link
+* Filter stemming words from given text/file/link
+* Get swear words from given text/file/link
 
 How Exude library works:
 
-Step 1: Removes the duplicate words from the input data/file. </br>
-Step 2: Removes the stopping words from step1 filtered data. </br>
-Step 3: Removes the stemmer words from step2 filtered data using the Porter algorithm which is used for suffix stripping. </br>
+Step 1: Filter the duplicate words from the input data/file. </br>
+Step 2: Filter the stopping words from step1 filtered data. </br>
+Step 3: Filter the stemmer/swear words from step2 filtered data using the Porter algorithm which is used for suffix stripping. </br>
 
 exude process sequence flow:
  
@@ -45,6 +51,18 @@ Sample File Data
 
 	String inputData = "any file path";
 	String output = exudeData.filterStoppings(inputData);
+	System.out.println("output : "+output);
+	
+Sample Link Data
+
+	String inputData = "https://en.wikipedia.org/wiki/Rama";
+	String output = exudeData.filterStoppings(inputData);
+	System.out.println("output : "+output);
+
+Get swear words from data/file/link
+
+	String inputData = "enter text with bad words";
+	String output = exudeData.getSwearWords(inputData);
 	System.out.println("output : "+output);
 
 
