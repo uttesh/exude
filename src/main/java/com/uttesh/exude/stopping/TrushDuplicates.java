@@ -8,14 +8,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
@@ -28,7 +32,9 @@ import org.apache.tika.sax.BodyContentHandler;
  */
 public class TrushDuplicates {
 
-    Set<String> filteredSet = new HashSet<String>();
+    Set<String> filteredSet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+    public static Set<String> tempSet = new LinkedHashSet<String>();
+    public static Set<String> _tempSet = new HashSet<String>();
 
     public static TrushDuplicates instance = null;
 
@@ -42,7 +48,6 @@ public class TrushDuplicates {
     public Set<String> filter(String file) throws IOException {
         try {
             List<String> strings = Files.readAllLines((new File(file)).toPath());
-            filteredSet = new TreeSet(String.CASE_INSENSITIVE_ORDER);
             filteredSet.addAll(strings);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -52,9 +57,38 @@ public class TrushDuplicates {
 
     public Set<String> filterData(String data) throws IOException {
         try {
+            String _data = null;
+            StoppingParser stoppingParser = StoppingParser.getInstance();
             String[] dataarr = data.split(Constants.SPACE);
-            filteredSet = new TreeSet(String.CASE_INSENSITIVE_ORDER);
-            filteredSet.addAll(Arrays.asList(dataarr));
+            if (dataarr == null) {
+                dataarr = data.split(Constants.COMMA);
+            }
+            for (int i = 0; i < dataarr.length; i++) {
+                String tempStr = dataarr[i];
+                String[] tempArr = tempStr.split(Constants.SPACE);
+                if (tempArr.length > 0) {
+                    for (int j = 0; j < tempArr.length; j++) {
+                        _data = tempArr[j].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                        stoppingParser.filterStoppingWords(_data);
+                        if (_data != null && _data.trim().length() > 0) {
+                            tempSet.add(_data);
+                        }
+                    }
+                } else {
+                    _data = dataarr[i].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                    stoppingParser.filterStoppingWords(_data);
+                    if (_data != null && _data.trim().length() > 0) {
+                        tempSet.add(_data);
+                    }
+                }
+            }
+            if (tempSet.size() > 0) {
+                Iterator<String> iterable = tempSet.iterator();
+                while (iterable.hasNext()) {
+                    String line = iterable.next();
+                }
+                filteredSet.addAll(tempSet);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,12 +109,14 @@ public class TrushDuplicates {
                     lines.add(line.replace("\"", ""));
                 }
             }
-             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(outFilePath), Constants.UTF_8));
-                for (String unique : lines) {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(outFilePath), Constants.UTF_8));
+            for (String unique : lines) {
+                if (unique.trim().length() > 0) {
                     writer.write(unique + " ");
                 }
-                writer.close();
+            }
+            writer.close();
         }
     }
 
@@ -96,11 +132,13 @@ public class TrushDuplicates {
             while (str.hasMoreElements()) {
                 line = (String) str.nextElement();
                 if (line.trim().length() > 0) {
-                    lines.add(line.replace("\"", ""));
+                    lines.add(line);
                 }
             }
             for (String unique : lines) {
-                stringBuilder.append(unique + " ");
+                if (unique.trim().length() > 0) {
+                    stringBuilder.append(unique + " ");
+                }
             }
             return stringBuilder.toString();
         }
@@ -120,7 +158,9 @@ public class TrushDuplicates {
                     }
                 }
                 for (String unique : filterwords) {
-                    stringBuilder.append(unique + " ");
+                    if (unique.trim().length() > 0) {
+                        stringBuilder.append(unique + " ");
+                    }
                 }
                 return stringBuilder.toString();
             } else {
@@ -133,15 +173,64 @@ public class TrushDuplicates {
     public static BodyContentHandler getData(String data) {
         try {
             Parser parser = new AutoDetectParser();
-            BodyContentHandler handler = new BodyContentHandler();
+            BodyContentHandler handler = new BodyContentHandler(10 * 1024 * 1024);
             Metadata metadata = new Metadata();
-            FileInputStream inputstream = new FileInputStream(new File(data));
-            ParseContext context = new ParseContext();
-            parser.parse(inputstream, handler, metadata, context);
+            boolean isURL = Pattern.matches(Constants.URL_REGULAR_EXPRESSION, data);
+            if (isURL) {
+                try {
+                    URL url = new URL(data);
+                    URLConnection conn = url.openConnection();
+                    ParseContext context = new ParseContext();
+                    parser.parse(conn.getInputStream(), handler, metadata, context);
+                } catch (UnknownHostException unknownHostException) {
+                    System.err.println("UnkonwnHost : " + unknownHostException.getMessage());
+                }
+            } else {
+                FileInputStream inputstream = new FileInputStream(new File(data));
+                ParseContext context = new ParseContext();
+                parser.parse(inputstream, handler, metadata, context);
+            }
             return handler;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public static void filterDuplicate(Set<String> dataSet) {
+        _tempSet = new HashSet<String>();
+        Iterator<String> _iterable = dataSet.iterator();
+        while (_iterable.hasNext()) {
+            String line = _iterable.next();
+            String[] dataarr = line.split(Constants.SPACE);
+            String _data = null;
+            if(dataarr.length > 0){
+            for (int i = 0; i < dataarr.length; i++) {
+                String tempStr = dataarr[i];
+                String[] tempArr = tempStr.split(Constants.SPACE);
+                if (tempArr.length > 0) {
+                    for (int j = 0; j < tempArr.length; j++) {
+                        _data = tempArr[j].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                        if (_data != null && _data.trim().length() > 0) {
+                            _tempSet.add(_data);
+                        }
+                    }
+                } else {
+                    _data = dataarr[i].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                    if (_data != null && _data.trim().length() > 0) {
+                        _tempSet.add(_data);
+                    }
+                }
+            }
+            }else{
+                _tempSet.add(line);
+            }
+        }
+    }
+
+    public static Set<String> getTempSet() {
+        return _tempSet;
+    }
+    
+    
 }

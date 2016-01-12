@@ -3,7 +3,7 @@ package com.uttesh.exude;
 import com.uttesh.exude.common.Constants;
 import com.uttesh.exude.stopping.StoppingParser;
 import com.uttesh.exude.stopping.TrushDuplicates;
-import java.io.File;
+import com.uttesh.exude.swear.SwearParser;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
@@ -45,8 +45,26 @@ public class ExudeData {
             Iterator<String> iterable = dataSet.iterator();
             while (iterable.hasNext()) {
                 String line = iterable.next();
-                finalFilteredData.append(stoppingParser.filterStoppingWords(line));
+                stoppingParser.filterStoppingWords(line.replaceAll("  +|   +|\t|\r|\n", " "));
             }
+            trushDuplicates.filterDuplicate(stoppingParser.getResultSet());
+            Iterator<String> _iterable = trushDuplicates.getTempSet().iterator();
+            while (_iterable.hasNext()) {
+                String line = _iterable.next();
+                finalFilteredData.append(line.trim() + " ");
+            }
+            return finalFilteredData.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getSwearWords(String data) throws IOException {
+        StringBuilder finalFilteredData = new StringBuilder();
+        try {
+            SwearParser swearParser = SwearParser.getInstance();
+            finalFilteredData.append(swearParser.getSwearWords(data));
             return finalFilteredData.toString();
         } catch (Exception e) {
             e.printStackTrace();
