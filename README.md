@@ -1,4 +1,4 @@
-# exude
+# exude  <a target="_blank" href="https://exude.herokuapp.com/">demo</a>
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/uttesh/exude/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/)
 [![Build Status](https://travis-ci.org/uttesh/exude.svg)](https://travis-ci.org/uttesh/exude)
