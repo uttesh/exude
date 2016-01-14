@@ -17,28 +17,6 @@ public interface StoppingConstatns {
      */
     String STOPPING_EN_FILE = "com/uttesh/data/stopping_en.properties";
 
-    String COMMON_EN_STOPPING_A_WORDS = "a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at";
-    String COMMON_EN_STOPPING_B_WORDS = "be,because,been,but,by,being";
-    String COMMON_EN_STOPPING_C_WORDS = "can,cannot,could";
-    String COMMON_EN_STOPPING_D_WORDS = "dear,did,do,does";
-    String COMMON_EN_STOPPING_E_WORDS = "either,else,ever,every";
-    String COMMON_EN_STOPPING_F_WORDS = "for,from";
-    String COMMON_EN_STOPPING_G_WORDS = "get,got";
-    String COMMON_EN_STOPPING_H_WORDS = "had,has,have,he,her,hers,him,his,how,however";
-    String COMMON_EN_STOPPING_I_WORDS = "i,if,in,into,is,it,its";
-    String COMMON_EN_STOPPING_J_WORDS = "just";
-    String COMMON_EN_STOPPING_L_WORDS = "least,let,like,likely";
-    String COMMON_EN_STOPPING_M_WORDS = "may,me,might,most,must,my";
-    String COMMON_EN_STOPPING_N_WORDS = "neither,no,nor,not";
-    String COMMON_EN_STOPPING_O_WORDS = "of,off,often,on,only,or,other,our,own";
-    String COMMON_EN_STOPPING_R_WORDS = "rather";
-    String COMMON_EN_STOPPING_S_WORDS = "said,say,says,she,should,since,so,some,such";
-    String COMMON_EN_STOPPING_T_WORDS = "than,that,the,their,them,then,there,these,they,this,tis,to,too,twas";
-    String COMMON_EN_STOPPING_U_WORDS = "us";
-    String COMMON_EN_STOPPING_W_WORDS = "wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,without";
-    String COMMON_EN_STOPPING_Y_WORDS = "yet,you,your";
-    String COMMON_EN_STOPPING_WORDS_WITH_CONTRACTION = "'tis,'twas,ain't,aren't,can't,could've,couldn't,didn't,doesn't,don't,hasn't,he'd,he'll,he's,hers,him,his,how,how'd,how'll,how's,however,i,i'd,i'll,i'm,i've,if,in,into,is,isn't,it,it's,its,just,least,let,like,likely,may,me,might,might've,mightn't,most,must,must've,mustn't,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,shan't,she,she'd,she'll,she's,should,should've,shouldn't,since,so,some,than,that,that'll,that's,the,their,them,then,there,there's,these,they,they'd,they'll,they're,they've,this,tis,to,too,twas,us,wants,was,wasn't,we,we'd,we'll,we're,were,weren't,what,what'd,what's,when,when,when'd,when'll,when's,where,where'd,where'll,where's,which,while,who,who'd,who'll,who's,whom,why,why'd,why'll,why's,will,with,won't,would,would've,wouldn't,yet,you,you'd,you'll,you're,you've,your";
-
     interface Letters {
 
         int K_ASCII = 107;

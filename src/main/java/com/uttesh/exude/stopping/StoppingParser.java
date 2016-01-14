@@ -14,13 +14,16 @@ import java.util.Set;
  * @author Uttesh Kumar T.H.
  */
 public class StoppingParser {
-    
+
     public static StoppingParser instance = null;
     ScrawlWords scrawlWords = ScrawlWords.getInstance();
     public static Set<String> finalFilteredSet = new LinkedHashSet<String>();
     Stemmer stemmer = new Stemmer();
-    
-    protected StoppingParser(){};
+
+    protected StoppingParser() {
+    }
+
+    ;
 
     public static StoppingParser getInstance() {
         if (instance == null) {
@@ -28,8 +31,8 @@ public class StoppingParser {
         }
         return instance;
     }
-    
-    public void finalData(StringBuilder finalFilteredData,String outputFile) {
+
+    public void finalData(StringBuilder finalFilteredData, String outputFile) {
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), Constants.UTF_8));
             writer.write(finalFilteredData + " ");
@@ -38,10 +41,10 @@ public class StoppingParser {
             e.printStackTrace();
         }
     }
-    
-    private String[] getWords(String data){
+
+    private String[] getWords(String data) {
         String[] words = data.split(Constants.SPACE);
-        if(words == null || words.length ==1){
+        if (words == null || words.length == 1) {
             words = data.split(Constants.COMMA);
         }
         return words;
@@ -69,8 +72,12 @@ public class StoppingParser {
         return filteredWords.toString();
     }
 
-    public Set<String> getResultSet(){
+    public Set<String> getResultSet() {
         return finalFilteredSet;
+    }
+
+    public void resetResultSet() {
+        finalFilteredSet = new LinkedHashSet<String>();
     }
 
 }

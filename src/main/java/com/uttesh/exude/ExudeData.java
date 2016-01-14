@@ -31,6 +31,9 @@ public class ExudeData {
     public String filterStoppings(String data) throws IOException {
         StringBuilder finalFilteredData = new StringBuilder();
         try {
+            if (data == null || data.trim().length() == 0) {
+                return "";
+            }
             TrushDuplicates trushDuplicates = TrushDuplicates.getInstance();
             boolean isFile = Pattern.matches(Constants.FILE_PATH_REGULAR_EXPRESSION, data);
             boolean isURL = Pattern.matches(Constants.URL_REGULAR_EXPRESSION, data);
@@ -45,7 +48,7 @@ public class ExudeData {
             Iterator<String> iterable = dataSet.iterator();
             while (iterable.hasNext()) {
                 String line = iterable.next();
-                stoppingParser.filterStoppingWords(line.replaceAll("  +|   +|\t|\r|\n", " "));
+                stoppingParser.filterStoppingWords(line.replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " "));
             }
             trushDuplicates.filterDuplicate(stoppingParser.getResultSet());
             Iterator<String> _iterable = trushDuplicates.getTempSet().iterator();
@@ -53,6 +56,9 @@ public class ExudeData {
                 String line = _iterable.next();
                 finalFilteredData.append(line.trim() + " ");
             }
+
+            stoppingParser.resetResultSet();
+            trushDuplicates.resetnTempSet();
             return finalFilteredData.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,8 +69,12 @@ public class ExudeData {
     public String getSwearWords(String data) throws IOException {
         StringBuilder finalFilteredData = new StringBuilder();
         try {
+            if (data == null || data.trim().length() == 0) {
+                return "";
+            }
             SwearParser swearParser = SwearParser.getInstance();
             finalFilteredData.append(swearParser.getSwearWords(data));
+            swearParser.resetSwearWords();
             return finalFilteredData.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,6 +84,11 @@ public class ExudeData {
 
     public void filterStoppings(String inputFile, String outputFile, String tempFile) {
         try {
+            if (inputFile == null || inputFile.trim().length() == 0
+                    || outputFile == null || outputFile.trim().length() == 0
+                    || tempFile == null || tempFile.trim().length() == 0) {
+                // do nothing
+            }
             TrushDuplicates trushDuplicates = TrushDuplicates.getInstance();
             trushDuplicates.filterDuplicates(inputFile, tempFile);
             StoppingParser stoppingParser = StoppingParser.getInstance();
@@ -85,6 +100,8 @@ public class ExudeData {
                 finalFilteredData.append(stoppingParser.filterStoppingWords(line));
             }
             stoppingParser.finalData(finalFilteredData, outputFile);
+            stoppingParser.resetResultSet();
+            trushDuplicates.resetnTempSet();
         } catch (Exception e) {
             e.printStackTrace();
         }

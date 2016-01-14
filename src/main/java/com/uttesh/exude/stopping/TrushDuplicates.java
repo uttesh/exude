@@ -4,18 +4,15 @@ import com.uttesh.exude.common.Constants;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
-import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -49,8 +46,8 @@ public class TrushDuplicates {
         try {
             File input = new File(file);
             if (input != null) {
-               // List<String> data = Files.readAllLines(input.toPath());
-               // filteredSet.addAll(data);
+                // List<String> data = Files.readAllLines(input.toPath());
+                // filteredSet.addAll(data);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,6 +230,11 @@ public class TrushDuplicates {
 
     public static Set<String> getTempSet() {
         return _tempSet;
+    }
+
+    public void resetnTempSet() {
+        tempSet = new LinkedHashSet<String>();
+        _tempSet = new HashSet<String>();
     }
 
 }

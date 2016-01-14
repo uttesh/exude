@@ -116,4 +116,8 @@ public class SwearParser {
             exception.printStackTrace();
         }
     }
+    
+    public void resetSwearWords(){
+        swearWords = new LinkedHashSet<String>();
+    }
 }
