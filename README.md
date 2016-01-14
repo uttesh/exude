@@ -1,4 +1,4 @@
-# exude
+# exude  <a target="_blank" href="https://exude.herokuapp.com/">demo</a>
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/uttesh/exude/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/)
 [![Build Status](https://travis-ci.org/uttesh/exude.svg)](https://travis-ci.org/uttesh/exude)
@@ -44,25 +44,25 @@ Sample code:
 Sample Text Data
 
 	 String inputData = "Kannada is a Southern Dravidian language, and according to Dravidian scholar Sanford Steever, its history can be conventionally divided into three periods; Old Kannada (halegannada) from 450–1200 A.D., Middle Kannada (Nadugannada) from 1200–1700 A.D., and Modern Kannada from 1700 to the present.[20] Kannada is influenced to an appreciable extent by Sanskrit. Influences of other languages such as Prakrit and Pali can also be found in Kannada language.";
-     String output = exudeData.filterStoppings(inputData);
+     String output = ExudeData.getInstance().filterStoppings(inputData);
      System.out.println("output : "+output);
 	 
 Sample File Data
 
 	String inputData = "any file path";
-	String output = exudeData.filterStoppings(inputData);
+	String output = ExudeData.getInstance().filterStoppings(inputData);
 	System.out.println("output : "+output);
 	
 Sample Link Data
 
 	String inputData = "https://en.wikipedia.org/wiki/Rama";
-	String output = exudeData.filterStoppings(inputData);
+	String output = ExudeData.getInstance().filterStoppings(inputData);
 	System.out.println("output : "+output);
 
 Get swear words from data/file/link
 
 	String inputData = "enter text with bad words";
-	String output = exudeData.getSwearWords(inputData);
+	String output = ExudeData.getInstance().getSwearWords(inputData);
 	System.out.println("output : "+output);
 
 
