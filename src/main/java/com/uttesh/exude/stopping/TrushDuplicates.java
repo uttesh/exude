@@ -10,9 +10,11 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -30,7 +32,9 @@ import org.apache.tika.sax.BodyContentHandler;
 public class TrushDuplicates {
 
     Set<String> filteredSet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+    List<String> resultList = new ArrayList<String>();
     public static Set<String> tempSet = new LinkedHashSet<String>();
+    public static List<String> tempList = new ArrayList<String>();
     public static Set<String> _tempSet = new HashSet<String>();
 
     public static TrushDuplicates instance = null;
@@ -41,6 +45,11 @@ public class TrushDuplicates {
         }
         return instance;
     }
+
+    protected TrushDuplicates() {
+    }
+
+    ;
 
     public Set<String> filter(String file) throws IOException {
         try {
@@ -53,6 +62,47 @@ public class TrushDuplicates {
             e.printStackTrace();
         }
         return filteredSet;
+    }
+
+    private String[] separateWords(String data) {
+        String[] dataarr = data.split(Constants.SPACE);
+        if (dataarr == null) {
+            dataarr = data.split(Constants.COMMA);
+        }
+        return dataarr;
+    }
+
+    public List<String> filterDataKeepDuplicate(String data) {
+        try {
+            String _data = null;
+            StoppingParser stoppingParser = StoppingParser.getInstance();
+            String[] dataarr = separateWords(data);
+            for (int i = 0; i < dataarr.length; i++) {
+                String tempStr = dataarr[i];
+                String[] tempArr = tempStr.split(Constants.SPACE);
+                if (tempArr.length > 0) {
+                    for (int j = 0; j < tempArr.length; j++) {
+                        _data = tempArr[j].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                        _data = stoppingParser.filterStoppingWordsKeepDuplicates(_data);
+                        if (_data != null && _data.trim().length() > 0) {
+                            tempList.add(_data);
+                        }
+                    }
+                } else {
+                    _data = dataarr[i].replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " ").toLowerCase();
+                    _data = stoppingParser.filterStoppingWordsKeepDuplicates(_data);
+                    if (_data != null && _data.trim().length() > 0) {
+                        tempList.add(_data);
+                    }
+                }
+            }
+            if (tempList.size() > 0) {
+                resultList.addAll(tempList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultList;
     }
 
     public Set<String> filterData(String data) throws IOException {
@@ -119,13 +169,13 @@ public class TrushDuplicates {
             writer.close();
         }
     }
+    
 
-    public String filterDuplicates(String path) throws IOException {
-        BodyContentHandler contentHandler = getData(path);
+    public String filterDuplicates(String data) throws IOException {
         Set<String> lines = new LinkedHashSet<String>();
         StringBuilder stringBuilder = new StringBuilder();
-        if (contentHandler != null) {
-            String line = contentHandler.toString();
+        if (data != null) {
+            String line = data;
             String delims = " ";
             line = line.trim();
             StringTokenizer str = new StringTokenizer(line, delims);
@@ -232,9 +282,14 @@ public class TrushDuplicates {
         return _tempSet;
     }
 
-    public void resetnTempSet() {
+    public static List<String> getTempList() {
+        return tempList;
+    }
+
+    public void reset() {
         tempSet = new LinkedHashSet<String>();
         _tempSet = new HashSet<String>();
+        tempList = new ArrayList<String>();
     }
 
 }

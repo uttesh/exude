@@ -2,7 +2,7 @@ package com.uttesh.exude.stopping;
 
 /**
  *
- * @author Rivet Systems, Inc.
+ * @author Uttesh Kumar T.H.
  */
 public interface StoppingConstatns {
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Simple Exude Suite">
+  
+
+    <test name="Simple Text data ">
+        <classes>
+            <class name="com.uttesh.exude.SimpleTextDataTest" />
+        </classes>
+    </test>
+  
+   
+  
+</suite>
+

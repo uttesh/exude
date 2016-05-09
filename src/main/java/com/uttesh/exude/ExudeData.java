@@ -1,13 +1,12 @@
 package com.uttesh.exude;
 
 import com.uttesh.exude.common.Constants;
-import com.uttesh.exude.stopping.StoppingParser;
-import com.uttesh.exude.stopping.TrushDuplicates;
-import com.uttesh.exude.swear.SwearParser;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.regex.Pattern;
+import com.uttesh.exude.common.ExudeRequest;
+import com.uttesh.exude.common.ExudeResponse;
+import com.uttesh.exude.exception.InvalidDataException;
+import com.uttesh.exude.factory.ExudeFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,7 +14,9 @@ import java.util.regex.Pattern;
  */
 public class ExudeData {
 
+    Logger logger = Logger.getLogger("ExudeData");
     private static ExudeData instance = null;
+    private ExudeRequest exudeRequest = new ExudeRequest();
 
     protected ExudeData() {
     }
@@ -24,86 +25,53 @@ public class ExudeData {
         if (instance == null) {
             instance = new ExudeData();
         }
-
         return instance;
     }
 
-    public String filterStoppings(String data) throws IOException {
-        StringBuilder finalFilteredData = new StringBuilder();
+    public String filterStoppings(String data) throws InvalidDataException {
         try {
-            if (data == null || data.trim().length() == 0) {
-                return "";
+            if (data.isEmpty()) {
+                throw new InvalidDataException(Constants.INVALID_DATA);
             }
-            TrushDuplicates trushDuplicates = TrushDuplicates.getInstance();
-            boolean isFile = Pattern.matches(Constants.FILE_PATH_REGULAR_EXPRESSION, data);
-            boolean isURL = Pattern.matches(Constants.URL_REGULAR_EXPRESSION, data);
-            String tempData = "";
-            if (isFile || isURL) {
-                tempData = trushDuplicates.filterDuplicates(data);
-            } else {
-                tempData = trushDuplicates.filterDuplicatesInText(data);
-            }
-            StoppingParser stoppingParser = StoppingParser.getInstance();
-            Set<String> dataSet = trushDuplicates.filterData(tempData);
-            Iterator<String> iterable = dataSet.iterator();
-            while (iterable.hasNext()) {
-                String line = iterable.next();
-                stoppingParser.filterStoppingWords(line.replaceAll(Constants.MULTIPLE_SPACE_TAB_NEW_LINE, " "));
-            }
-            trushDuplicates.filterDuplicate(stoppingParser.getResultSet());
-            Iterator<String> _iterable = trushDuplicates.getTempSet().iterator();
-            while (_iterable.hasNext()) {
-                String line = _iterable.next();
-                finalFilteredData.append(line.trim() + " ");
-            }
-
-            stoppingParser.resetResultSet();
-            trushDuplicates.resetnTempSet();
-            return finalFilteredData.toString();
+            exudeRequest.setData(data);
+            ExudeFactory exudeFactory = new ExudeFactory(exudeRequest);
+            ExudeResponse response = exudeFactory.filterStopppingData();
+            return response.getResultData();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new InvalidDataException("Invalid Data", e);
         }
-        return "";
     }
 
-    public String getSwearWords(String data) throws IOException {
-        StringBuilder finalFilteredData = new StringBuilder();
+    public String filterStoppingsKeepDuplicates(String data) throws InvalidDataException {
         try {
-            if (data == null || data.trim().length() == 0) {
-                return "";
+            if (data.isEmpty()) {
+                throw new InvalidDataException(Constants.INVALID_DATA);
             }
-            SwearParser swearParser = SwearParser.getInstance();
-            finalFilteredData.append(swearParser.getSwearWords(data));
-            swearParser.resetSwearWords();
-            return finalFilteredData.toString();
+            exudeRequest.setData(data);
+            exudeRequest.setKeepDuplicate(true);
+            ExudeFactory exudeFactory = new ExudeFactory(exudeRequest);
+            ExudeResponse response = exudeFactory.filterStopppingData();
+            return response.getResultData();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new InvalidDataException("Invalid Data", e);
         }
-        return "";
     }
 
-    public void filterStoppings(String inputFile, String outputFile, String tempFile) {
+    public String getSwearWords(String data) throws InvalidDataException {
         try {
-            if (inputFile == null || inputFile.trim().length() == 0
-                    || outputFile == null || outputFile.trim().length() == 0
-                    || tempFile == null || tempFile.trim().length() == 0) {
-                // do nothing
+            if (data.isEmpty()) {
+                throw new InvalidDataException(Constants.INVALID_DATA);
             }
-            TrushDuplicates trushDuplicates = TrushDuplicates.getInstance();
-            trushDuplicates.filterDuplicates(inputFile, tempFile);
-            StoppingParser stoppingParser = StoppingParser.getInstance();
-            Set<String> dataSet = trushDuplicates.filter(tempFile);
-            Iterator<String> iterable = dataSet.iterator();
-            StringBuilder finalFilteredData = new StringBuilder();
-            while (iterable.hasNext()) {
-                String line = iterable.next();
-                finalFilteredData.append(stoppingParser.filterStoppingWords(line));
-            }
-            stoppingParser.finalData(finalFilteredData, outputFile);
-            stoppingParser.resetResultSet();
-            trushDuplicates.resetnTempSet();
+            exudeRequest.setData(data);
+            exudeRequest.setKeepDuplicate(true);
+            ExudeFactory exudeFactory = new ExudeFactory(exudeRequest);
+            ExudeResponse response = exudeFactory.getSwearWords();
+            return response.getResultData();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new InvalidDataException("Invalid Data", e);
         }
     }
 

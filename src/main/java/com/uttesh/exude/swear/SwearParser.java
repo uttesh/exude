@@ -14,10 +14,7 @@ public class SwearParser {
     private static Set<String> swearWords = new LinkedHashSet<String>();
     ScrawlWords scrawlWords = ScrawlWords.getInstance();
 
-    protected SwearParser() {
-    }
-
-    ;
+    protected SwearParser() {};
     public static SwearParser getInstance() {
         if (instance == null) {
             instance = new SwearParser();

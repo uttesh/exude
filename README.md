@@ -9,12 +9,12 @@ This is the part of maven repository now,Directly add in pom following.
         <dependency>
             <groupId>com.uttesh</groupId>
             <artifactId>exude</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
         
 <b>How to use exude Library</b>
 <hr/>
-Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.2/">download</a>
+Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.3/">download</a>
 
 Features:
 
@@ -65,6 +65,15 @@ Get swear words from data/file/link
 	String output = ExudeData.getInstance().getSwearWords(inputData);
 	System.out.println("output : "+output);
 
+New Feature:
+
+1. Keep the duplicate words after the filterStoppings
+
+Sample Text Data
+
+	 String inputData = "testing testing testing the keep keep the the duplicate data data in result";
+     String output = ExudeData.getInstance().filterStoppingsKeepDuplicates(inputData);
+     System.out.println("output : "+output);
 
 contributions
 =============

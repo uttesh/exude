@@ -6,7 +6,9 @@ import com.uttesh.exude.stemming.Stemmer;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,12 +20,10 @@ public class StoppingParser {
     public static StoppingParser instance = null;
     ScrawlWords scrawlWords = ScrawlWords.getInstance();
     public static Set<String> finalFilteredSet = new LinkedHashSet<String>();
+    public static List<String> finalFilterListWithDuplicates = new ArrayList<String>();
     Stemmer stemmer = new Stemmer();
 
-    protected StoppingParser() {
-    }
-
-    ;
+    protected StoppingParser() {};
 
     public static StoppingParser getInstance() {
         if (instance == null) {
@@ -49,35 +49,51 @@ public class StoppingParser {
         }
         return words;
     }
-
-    public String filterStoppingWords(String data) {
+    
+    private String filterStoppings(String data){
         String[] words = getWords(data);
         StringBuilder filteredWords = new StringBuilder();
         try {
             if (words.length > 0) {
                 for (String word : words) {
-                    //word = stemmer.stem(word.trim());
                     word = scrawlWords.getOnlyStrings(word);
                     scrawlWords.filterStopingWord(word.trim(), filteredWords);
                 }
             } else {
-                //data = stemmer.stem(data.trim());
                 data = scrawlWords.getOnlyStrings(data);
                 scrawlWords.filterStopingWord(data.trim(), filteredWords);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        finalFilteredSet.add(filteredWords.toString().toLowerCase());
         return filteredWords.toString();
+    }
+
+    public String filterStoppingWordsKeepDuplicates(String data) {
+        String filteredWords = filterStoppings(data);
+        if(!filteredWords.isEmpty()){
+            finalFilterListWithDuplicates.add(filteredWords.toLowerCase());
+        }
+        return filteredWords;
+    }
+
+    public String filterStoppingWords(String data) {
+        String filteredWords = filterStoppings(data);
+        finalFilteredSet.add(filteredWords.toLowerCase());
+        return filteredWords;
     }
 
     public Set<String> getResultSet() {
         return finalFilteredSet;
     }
 
-    public void resetResultSet() {
+    public void reset() {
         finalFilteredSet = new LinkedHashSet<String>();
+        finalFilterListWithDuplicates = new ArrayList<String>();
+    }
+
+    public static List<String> getFinalFilterListWithDuplicates() {
+        return finalFilterListWithDuplicates;
     }
 
 }
