@@ -19,8 +19,6 @@ import com.uttesh.exude.common.BaseResource;
 import com.uttesh.exude.common.Constants;
 import com.uttesh.exude.stopping.StoppingResource;
 import com.uttesh.exude.swear.SwearResource;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,8 +27,6 @@ import java.util.regex.Pattern;
  * @author Uttesh Kumar T.H.
  */
 public class ScrawlWords {
-
-    private static final String SPLIT_ON_COMMA_AND_REMOVE_SPACE = "\\s*,\\s*";
 
     public static ScrawlWords instance = null;
 
@@ -100,6 +96,7 @@ public class ScrawlWords {
     }
 
     private boolean isValidWord(String word, BaseResource baseResource) {
+        boolean valid = true;
         try {
             word = word.toUpperCase();
 
@@ -112,22 +109,15 @@ public class ScrawlWords {
                         String searchProp = String.valueOf(word.charAt(0)) + String.valueOf(word.charAt(1));
                         String words = baseResource.getProperties(searchProp);
                         if (words != null && words.contains(word.toLowerCase())) {
-                            return false;
+                            valid = false;
                         }
                     }
                 } else if (baseResource instanceof SwearResource) {
                     if (Character.isLetter((char) firstCharater)) {
                         String searchProp = String.valueOf(word.charAt(0));
                         String words = baseResource.getProperties(searchProp);
-
                         if (words != null && words.contains(word.toLowerCase())) {
-                            final String[] swearWords = words.trim().split(SPLIT_ON_COMMA_AND_REMOVE_SPACE);
-                            final String wordToCheck = word.toLowerCase();
-
-                            for (final String swearWord : swearWords) {
-                                if (StringUtils.equals(swearWord, wordToCheck))
-                                    return false;
-                            }
+                            valid = false;
                         }
                     }
                 }
@@ -136,6 +126,6 @@ public class ScrawlWords {
             e.printStackTrace();
         }
         //System.out.println("word : "+word.toLowerCase()+": is valid : "+valid);
-        return true;
+        return valid;
     }
 }
