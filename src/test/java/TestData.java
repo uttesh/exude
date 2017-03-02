@@ -1,10 +1,11 @@
 
 import com.uttesh.exude.ExudeData;
 import com.uttesh.exude.exception.InvalidDataException;
-import java.io.IOException;
-import java.net.UnknownHostException;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -46,6 +47,15 @@ public class TestData {
         String output = exudeData.getSwearWords(inputData);
         System.out.println("getSwearWordsFromData output swear words : " + output);
     }
+
+    @Test(enabled = false)
+    public void nonSwearWordsDontGetReturned() throws IOException, InvalidDataException {
+        String inputData = "This is as cool as me.";
+        String output = exudeData.getSwearWords(inputData);
+        assert output.isEmpty();
+        System.out.println("getSwearWordsFromData output swear words : " + output);
+    }
+
 
     @Test(enabled = false)
     public void filterStoppingFromLinkData() throws IOException, InvalidDataException {
