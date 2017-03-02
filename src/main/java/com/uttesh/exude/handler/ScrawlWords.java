@@ -120,7 +120,7 @@ public class ScrawlWords {
                         String searchProp = String.valueOf(word.charAt(0));
                         String words = baseResource.getProperties(searchProp);
 
-                        if (words != null) {
+                        if (words != null && words.contains(word.toLowerCase())) {
                             final String[] swearWords = words.trim().split(SPLIT_ON_COMMA_AND_REMOVE_SPACE);
                             final String wordToCheck = word.toLowerCase();
 
