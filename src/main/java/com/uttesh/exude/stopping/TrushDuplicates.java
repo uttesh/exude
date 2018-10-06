@@ -48,23 +48,9 @@ public class TrushDuplicates {
 
     Set<String> filteredSet = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
     List<String> resultList = new ArrayList<String>();
-    public static Set<String> tempSet = new LinkedHashSet<String>();
-    public static List<String> tempList = new ArrayList<String>();
-    public static Set<String> _tempSet = new HashSet<String>();
-
-    public static TrushDuplicates instance = null;
-
-    public static TrushDuplicates getInstance() {
-        if (instance == null) {
-            instance = new TrushDuplicates();
-        }
-        return instance;
-    }
-
-    protected TrushDuplicates() {
-    }
-
-    ;
+    public Set<String> tempSet = new LinkedHashSet<String>();
+    public List<String> tempList = new ArrayList<String>();
+    public Set<String> _tempSet = new HashSet<String>();
 
     public Set<String> filter(String file) throws IOException {
         try {
@@ -262,7 +248,7 @@ public class TrushDuplicates {
         return null;
     }
 
-    public static void filterDuplicate(Set<String> dataSet) {
+    public void filterDuplicate(Set<String> dataSet) {
         _tempSet = new HashSet<String>();
         Iterator<String> _iterable = dataSet.iterator();
         while (_iterable.hasNext()) {
@@ -293,11 +279,11 @@ public class TrushDuplicates {
         }
     }
 
-    public static Set<String> getTempSet() {
+    public Set<String> getTempSet() {
         return _tempSet;
     }
 
-    public static List<String> getTempList() {
+    public List<String> getTempList() {
         return tempList;
     }
 

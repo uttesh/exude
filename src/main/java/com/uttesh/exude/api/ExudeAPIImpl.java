@@ -33,8 +33,6 @@ public class ExudeAPIImpl {
 
     protected static ExudeAPIImpl instance = null;
 
-    TrushDuplicates trushDuplicates = TrushDuplicates.getInstance();
-
     public static ExudeAPIImpl getInstance() {
         if (instance == null) {
             instance = new ExudeAPIImpl();
@@ -50,6 +48,7 @@ public class ExudeAPIImpl {
     public ExudeResponse filterStoppings(ExudeRequest exudeRequest) throws InvalidDataException {
         String tempData = "";
         StringBuilder finalFilteredData = new StringBuilder();
+        TrushDuplicates trushDuplicates = new TrushDuplicates();
         try {
             String fileData = exudeRequest.getData();
             tempData = trushDuplicates.filterDuplicates(fileData);
@@ -77,6 +76,7 @@ public class ExudeAPIImpl {
     public ExudeResponse filterStoppingWithDuplicate(ExudeRequest exudeRequest) throws InvalidDataException {
         String tempData = "";
         StringBuilder finalFilteredData = new StringBuilder();
+        TrushDuplicates trushDuplicates = new TrushDuplicates();
         try {
             tempData = exudeRequest.getData();
             StoppingParser stoppingParser = StoppingParser.getInstance();
