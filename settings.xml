@@ -1,0 +1,20 @@
+<settings>
+	<servers>
+		<server>
+			<id>ossrh</id>
+			<username></username>
+			<password></password>
+		</server>
+	</servers>
+	<profiles>
+		<profile>
+			<id>ossrh</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<gpg.passphrase></gpg.passphrase>
+			</properties>
+		</profile>
+	</profiles>
+</settings>
