@@ -1,5 +1,6 @@
 # exude  <a target="_blank" href="https://exude.herokuapp.com/">demo</a>
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.uttesh/exude.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.uttesh%22%20AND%20a:%22exude%22)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.uttesh/exude/)
 [![Build Status](https://travis-ci.org/uttesh/exude.svg)](https://travis-ci.org/uttesh/exude)
 <p>This is simple library for removing/filtering the stopping,stemming words from the text data, this library is in very basic level of development need to work on for later changes.</p>
