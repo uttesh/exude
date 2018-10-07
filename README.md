@@ -9,12 +9,12 @@ This is the part of maven repository now,Directly add in pom following.
         <dependency>
             <groupId>com.uttesh</groupId>
             <artifactId>exude</artifactId>
-            <version>0.0.3</version>
+            <version>0.0.4</version>
         </dependency>
         
 <b>How to use exude Library</b>
 <hr/>
-Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.3/">download</a>
+Download latest version of exude <a href="https://repo1.maven.org/maven2/com/uttesh/exude/0.0.4/">download</a>
 
 Features:
 
@@ -87,7 +87,7 @@ Exude library Developer : <a href="http://www.uttesh.com" target="_blank">uttesh
 
 <p>(The Apache License)</p>
 
-<p>Copyright (c) 2016 Uttesh Kumar T.H.</p>
+<p>Copyright (c) 2018 Uttesh Kumar T.H.</p>
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
