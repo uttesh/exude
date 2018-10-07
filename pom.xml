@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.uttesh</groupId>
 	<artifactId>exude</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,7 +47,7 @@
 		<connection>scm:git:git://github.com/uttesh/exude.git</connection>
 		<developerConnection>scm:git:git@github.com:uttesh/exude.git</developerConnection>
 		<url>https://github.com/uttesh/exude</url>
-		<tag>exude-0.0.4</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencies>
